@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,22 +42,26 @@ public class ProductController {
 		System.out.println("\n==> " + this.getClass() + " 의 default 생성자 실행");
 	}
 	
-	//==> classpath:config/common.properties  ,  classpath:config/commonservice.xml 참조 할것
-	//==> 아래의 두개를 주석을 풀어 의미를 확인 할것
 	@Value("#{commonProperties['pageUnit']}")
-	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 		
 	@Value("#{commonProperties['pageSize']}")
-	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
+	
+	@RequestMapping(value="addProduct", method=RequestMethod.GET)
+	public String addProduct() throws Exception{
 		
-//	@RequestMapping("/addProduct.do")
+		System.out.println("/product/addProduct : GET");
+		
+		return "forward:/product/addProductView.jsp";
+	}
+	
+	
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
-	public String addProduct( @ModelAttribute("product") Product product) throws Exception{
+	public String addProduct(@ModelAttribute("product") Product product) throws Exception{
 		
-		System.out.println("/addProduct.do");
+		System.out.println("/product/addProduct : POST");
 		//Business Logic
 		product.setManuDate(product.getManuDate().replaceAll("-", ""));
 		productService.addProduct(product);
@@ -64,22 +69,22 @@ public class ProductController {
 		return "forward:/product/addProduct.jsp";
 	}
 	
-//	@RequestMapping("/getProduct.do")		
+		
 	@RequestMapping(value="getProduct", method=RequestMethod.GET )
 	public String getProduct(@RequestParam("prodNo") int prodNo, Model model,
 							 @CookieValue(value="history", required=false) String history,
 							 HttpServletResponse response) throws Exception {
 	
-		System.out.println("/getProduct.do");
+		System.out.println("/product/getProduct : GET");
+		
+		//Cookie 생성
+		CookieGenerator cookie = new CookieGenerator();
+		history = "history" + prodNo;
+		cookie.setCookieName("history");
+		cookie.addCookie(response, history);
 		
 		//Business Logic
 		Product product = productService.getProduct(prodNo);
-		
-		CookieGenerator cookie = new CookieGenerator();
-	    
-		history = "history" + prodNo;
-		cookie.setCookieName("history");
-	    cookie.addCookie(response, history);
 		
 		//Model 과 View 연결
 		model.addAttribute("product", product);
@@ -87,35 +92,57 @@ public class ProductController {
 		return "forward:/product/getProduct.jsp";
 	}
 	
-//	@RequestMapping("/updateProductView.do")
+	////////////////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value="getJsonProduct/{prodNo}", method=RequestMethod.GET )
+	public void getJsonProduct(@PathVariable int prodNo, Model model,
+							     @CookieValue(value="history", required=false) String history,
+							     HttpServletResponse response) throws Exception {
+	
+		System.out.println("/product/getProduct : GET");
+		
+		//Cookie 생성
+		CookieGenerator cookie = new CookieGenerator();
+		history = "history" + prodNo;
+		cookie.setCookieName("history");
+		cookie.addCookie(response, history);
+				
+		//Business Logic
+		Product product = productService.getProduct(prodNo);
+		
+		//Model 과 View 연결
+		model.addAttribute("product", product);
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
 	@RequestMapping(value="updateProduct", method=RequestMethod.GET)
 	public String updateProduct(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
 		
-		System.out.println("/updateProductView.do");
+		System.out.println("/product/updateProduct : GET");
 		//Business Logic
 		Product product = productService.getProduct(prodNo);
 		// Model 과 View 연결
 		model.addAttribute("product", product);
 		
-		return "forward:/product/updateProduct.jsp";
+		return "forward:/product/updateProductView.jsp";
 	}
+
 	
-//	@RequestMapping("/updateProduct.do")
 	@RequestMapping(value="updateProduct", method=RequestMethod.POST)
-	public String updateProduct(@ModelAttribute("product") Product product, Model model, HttpSession session ) throws Exception {
+	public String updateProduct(@ModelAttribute("product") Product product) throws Exception {
 		
-		System.out.println("/updateProduct.do");
+		System.out.println("/product/updateProduct : POST");
 		//Business Logic
 		productService.updateProduct(product);
 		
-		return "forward:/getProduct.do?prodNo="+product.getProdNo();
+		return "forward:/product/getProduct?prodNo="+product.getProdNo();
 	}
 	
-//	@RequestMapping("/listProduct.do")
+
 	@RequestMapping(value="listProduct")	
 	public String listProduct(@ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 	
-		System.out.println("/listProduct.do");
+		System.out.println("/product/listProduct : GET / POST");
 		
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
@@ -126,7 +153,7 @@ public class ProductController {
 		Map<String , Object> map = productService.getProductList(search);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
+		System.out.println("resultPage : " + resultPage);
 		
 		// Model 과 View 연결
 		model.addAttribute("list", map.get("list"));

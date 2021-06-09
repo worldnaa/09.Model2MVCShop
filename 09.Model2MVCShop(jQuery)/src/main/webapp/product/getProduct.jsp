@@ -6,12 +6,9 @@
 <!DOCTYPE html>
 <html>
 
-	${ System.out.println("<<<<< getProduct.jsp 시작 >>>>>") }
-
 <head>
 	<meta charset="EUC-KR">
-	<title>상품상세조회</title>
-	
+	<title>상품상세조회</title>	
 	<link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
@@ -24,19 +21,19 @@
 			//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
 			 $( "td.ct_btn01:contains('구매')" ).on("click" , function() {
 				//Debug..
-				alert(  $( "td.ct_btn01:contains('구매')" ).html() );
+				//alert(  $( "td.ct_btn01:contains('구매')" ).html() );
 				self.location = "/purchase/addPurchaseView?prod_no=${product.prodNo}"
 			 });
 			
 			 $( "td.ct_btn01:contains('이전')" ).on("click" , function() {
 				//Debug..
-				alert(  $( "td.ct_btn01:contains('이전')" ).html() );
+				//alert(  $( "td.ct_btn01:contains('이전')" ).html() );
 				history.go(-1);
 			 });
 			
 			 $( "td.ct_btn01:contains('확인')" ).on("click" , function() {
 				//Debug..
-				alert(  $( "td.ct_btn01:contains('확인')" ).html() );
+				//alert(  $( "td.ct_btn01:contains('확인')" ).html() );
 				self.location = "/purchase/listSale?menu=manage"
 			 });
 		 });
@@ -187,4 +184,3 @@
 
 </body>
 </html>
-${ System.out.println("<<<<< getProduct.jsp 종료 >>>>>") }

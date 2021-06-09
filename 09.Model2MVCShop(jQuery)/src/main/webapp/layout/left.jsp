@@ -41,14 +41,13 @@
 				//alert(  $( ".Depth03:contains('회원정보조회')" ) );
 		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/listUser");
 			});
-		});	
 		
-		$(function() {			
+			
 		 	//==> 판매상품등록 Event 연결처리부분
 		 	$( ".Depth03:contains('판매상품등록')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('판매상품등록')" ) );
-		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/addProductView");
+		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/addProduct");
 			});
 			
 			
@@ -56,13 +55,12 @@
 		 	$( ".Depth03:contains('판매상품관리')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('판매상품관리')" ) );
-		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=manage");
+		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listSale?menu=manage");
 			});
-		});	
-			
-		$(function() {	
+		 	
+		 	
 		 	//==> 상품검색 Event 연결처리부분
-		 	$( ".Depth03:contains('상품검색')" ).on("click" , function() {
+		 	$( ".Depth03:contains('상 품 검 색')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('상품검색')" ) );
 		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search");
@@ -78,11 +76,12 @@
 			
 			
 		 	//==> 판매상품관리 Event 연결처리부분
-		 	$( ".Depth03:contains('최근본상품')" ).on("click" , function() {
+		 	$( ".Depth03:contains('최근 본 상품')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('최근본상품')" ) );
-		 		$(window.parent.frames["rightFrame"].document.location).attr("href","javascript:history()");
+		 		history();
 			});			
+		
 		});	
 		 
 	</script>

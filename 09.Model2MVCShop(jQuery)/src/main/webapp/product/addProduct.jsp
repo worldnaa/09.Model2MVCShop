@@ -1,16 +1,12 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-${ System.out.println("<<<<< addProduct.jsp 시작 >>>>>") }
-
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="EUC-KR">
-	
 	<title>상품등록</title>
-
 	<link rel="stylesheet" href="/css/admin.css" type="text/css">
 	
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
@@ -21,8 +17,8 @@ ${ System.out.println("<<<<< addProduct.jsp 시작 >>>>>") }
 		$(function() {
 			 $( "td.ct_btn01:contains('확인')" ).on("click" , function() {
 				//Debug..
-				alert(  $( "td.ct_btn01:contains('확인')" ).html() );
-				self.location = "/product/listProduct?menu=manage"
+				//alert(  $( "td.ct_btn01:contains('확인')" ).html() );
+				self.location = "/product/listProduct?menu=search"
 			 });
 		});	
 		
@@ -30,8 +26,8 @@ ${ System.out.println("<<<<< addProduct.jsp 시작 >>>>>") }
 		$(function() {
 			 $( "td.ct_btn01:contains('추가등록')" ).on("click" , function() {
 				//Debug..
-				alert(  $( "td.ct_btn01:contains('추가등록')" ).html() );
-				self.location = "/product/addProductView"
+				//alert(  $( "td.ct_btn01:contains('추가등록')" ).html() );
+				self.location = "/product/addProduct"
 			 });
 		});
 		

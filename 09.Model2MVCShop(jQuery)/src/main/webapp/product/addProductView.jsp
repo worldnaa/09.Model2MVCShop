@@ -1,21 +1,17 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 <%@ page pageEncoding="EUC-KR"%>
 
-${ System.out.println("<<<<< addProductView.jsp 시작 >>>>>") }
-
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="EUC-KR">
-	
 	<title>상품등록</title>
-
 	<link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+	<script type="text/javascript" src="../javascript/calendar.js"></script>
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="../javascript/calendar.js"></script>
 	<script type="text/javascript">
 
 		// 기존 Code 주석 처리 후 jQuery 로 변경
@@ -53,25 +49,30 @@ ${ System.out.println("<<<<< addProductView.jsp 시작 >>>>>") }
 			
 			$("form").attr("method" , "POST").attr("action" , "/product/addProduct").submit();
 		}
-
 		
+		// "취소"  Event 처리 및  연결
+		$(function() {	
+			$( "td.ct_btn01:contains('취소')" ).on("click" , function() {
+				//Debug..
+				//alert(  $( "td.ct_btn01:contains('취소')" ).html() );
+				$("form")[0].reset();
+			});
+		});
+		
+		
+		// "취소"  Event 처리 및  연결
 		//function resetData() {
 		//	document.detailForm.reset();
 		//}
-		
-		//==> 추가된부분 : "취소"  Event 처리 및  연결
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
-			$( "td.ct_btn01:contains('취소')" ).on("click" , function() {
-					//Debug..
-					alert(  $( "td.ct_btn01:contains('취소')" ).html() );
-					$("form")[0].reset();
+		$(function() {	
+			$( "td.ct_btn01:contains('등록')" ).on("click" , function() {
+				//Debug..
+				//alert(  $( "td.ct_btn01:contains('등록')" ).html() );
+				fncAddProduct();
 			});
 		});	
 		
 	</script>
-	
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
@@ -186,7 +187,8 @@ ${ System.out.println("<<<<< addProductView.jsp 시작 >>>>>") }
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01"  style="padding-top: 3px;">
-					<a href="javascript:fncAddProduct();">등록</a>
+					<!-- <a href="javascript:fncAddProduct();">등록</a> -->
+					등록
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -212,4 +214,3 @@ ${ System.out.println("<<<<< addProductView.jsp 시작 >>>>>") }
 </form>
 </body>
 </html>
-${ System.out.println("<<<<< addProductView.jsp 종료 >>>>>") }

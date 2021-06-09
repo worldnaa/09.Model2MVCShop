@@ -3,8 +3,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-${ System.out.println("<<<<< updateProductView.jsp 시작 >>>>>") }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,8 +49,23 @@ ${ System.out.println("<<<<< updateProductView.jsp 시작 >>>>>") }
 			//document.detailForm.action='/updateProduct.do?menu=${menu}';
 			//document.detailForm.submit();
 			
-			$("form").attr("method" , "POST").attr("action" , "/product/updateProduct?menu=${menu}").submit();
+			$("form").attr("method" , "POST").attr("action" , "/product/updateProduct?menu=manage").submit();
 		}
+		
+		
+		$(function(){
+			// 수정 Event 연결처리
+			$("td.ct_btn01:contains('수정')").on("click" , function(){
+				fncAddProduct();
+			});
+			
+			// 취소 Event 연결처리
+			$("td.ct_btn01:contains('취소')").on("click" , function(){
+				history.go(-1);
+			});
+			
+		})
+		
 	</script>
 </head>
 
@@ -170,7 +183,8 @@ ${ System.out.println("<<<<< updateProductView.jsp 시작 >>>>>") }
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-						<a href="javascript:fncAddProduct();">수정</a>
+						<!-- <a href="javascript:fncAddProduct();">수정</a> -->
+						수정
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -180,7 +194,8 @@ ${ System.out.println("<<<<< updateProductView.jsp 시작 >>>>>") }
 						<img src="/images/ct_btnbg01.gif"width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:history.go(-1)">취소</a>
+						<!-- <a href="javascript:history.go(-1)">취소</a> -->
+						취소
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -194,4 +209,3 @@ ${ System.out.println("<<<<< updateProductView.jsp 시작 >>>>>") }
 
 </body>
 </html>
-${ System.out.println("<<<<< updateProductView.jsp 시작 >>>>>") }
